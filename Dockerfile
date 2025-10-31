@@ -9,13 +9,15 @@ RUN apt-get update && apt-get install -y build-essential git curl && rm -rf /var
 
 COPY . /app
 
-# Install dependencies including LiveKit Agents SDK from GitHub
+# Install dependencies properly
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -e . \
-    && pip install flask git+https://github.com/livekit/agents.git
+    && pip install flask \
+    && pip install "livekit>=0.17.0" \
+    && pip install "git+https://github.com/livekit/agents.git@main"
 
 COPY health.py /app/health.py
 
 EXPOSE 5000
 
-CMD python /app/health.py & exec python -m livekit.agents
+CMD python /app/health.py & exec python -m livekit_agents.examples.basic_agent
