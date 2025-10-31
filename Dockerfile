@@ -17,4 +17,5 @@ COPY health.py /app/health.py
 
 EXPOSE 5000
 
-CMD python /app/health.py & exec livekit-agents
+# Run Flask health + LiveKit Agents CLI
+CMD python /app/health.py & exec livekit-agents-cli
