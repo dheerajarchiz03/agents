@@ -25,5 +25,5 @@ COPY health.py /app/health.py
 EXPOSE 5000
 
 # Use bash to start both Flask and LiveKit agent in parallel
-CMD bash -c "python /app/health.py & python -m livekit_agents.examples.basic_agent"
+CMD python /app/health.py & exec python -m livekit_agents.examples.basic_agent
 
