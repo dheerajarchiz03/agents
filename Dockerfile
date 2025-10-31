@@ -11,13 +11,11 @@ COPY . /app
 
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -e . \
-    && pip install flask "livekit-agents"
+    && pip install flask livekit-agents
 
 COPY health.py /app/health.py
 
 EXPOSE 5000
 
-# Run Flask health + LiveKit Agents CLI
-
-CMD python /app/health.py & exec python -m livekit_agents.examples.basic_agent
-
+# Start Flask for health + LiveKit agent runner
+CMD python /app/health.py & exec python -m livekit_agents
