@@ -15,6 +15,7 @@ COPY . /app
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -e . \
     && pip install flask livekit-agents
+RUN apt-get update && apt-get install -y build-essential git curl && rm -rf /var/lib/apt/lists/*
 
 # Add health endpoint
 COPY health.py /app/health.py
