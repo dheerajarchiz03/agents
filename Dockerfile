@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y build-essential git curl && rm -rf /var
 
 COPY . /app
 
-# Install dependencies properly
+# Install all dependencies
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -e . \
     && pip install flask \
@@ -20,4 +20,5 @@ COPY health.py /app/health.py
 
 EXPOSE 5000
 
-CMD python /app/health.py & exec python -m livekit_agents.examples.basic_agent
+# Launch healthcheck + basic LiveKit agent example
+CMD python /app/health.py & exec python -m livekit.agents.examples.basic_agent
