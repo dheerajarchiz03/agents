@@ -5,22 +5,21 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# System deps (added curl)
+# Install system dependencies
 RUN apt-get update && apt-get install -y build-essential git curl && rm -rf /var/lib/apt/lists/*
 
-# Copy files
+# Copy project files
 COPY . /app
 
-# Install dependencies
+# Install Python dependencies
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -e . \
     && pip install flask livekit-agents
-RUN apt-get update && apt-get install -y build-essential git curl && rm -rf /var/lib/apt/lists/*
 
 # Add health endpoint
 COPY health.py /app/health.py
 
 EXPOSE 5000
 
-# Start both Flask and LiveKit Agent
+# Start Flask (background) and LiveKit agent
 CMD python /app/health.py & exec python -m livekit_agents.examples.basic_agent
