@@ -14,7 +14,7 @@ COPY . /app
 # Install Python dependencies
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -e . \
-    && pip install flask livekit-agents
+    && pip install flask "livekit-agents"
 
 # Add health endpoint
 COPY health.py /app/health.py
@@ -22,4 +22,5 @@ COPY health.py /app/health.py
 EXPOSE 5000
 
 # Start Flask (background) and LiveKit agent
-CMD python /app/health.py & exec python -m livekit_agents.examples.basic_agent
+CMD python /app/health.py & exec python -m livekit.agents.examples.basic_agent
+
