@@ -17,4 +17,4 @@ COPY health.py /app/health.py
 
 EXPOSE 5000
 
-CMD python /app/health.py & exec python -m livekit.agents.cli run
+CMD python /app/health.py & exec livekit-agents
